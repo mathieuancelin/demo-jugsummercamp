@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hotels management</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" media="screen" href="/app/static/style/main.css">
+        <script src="/app/static/js/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div id="header">
+            <h1><a href="/app/static/html/index.html">Weld-OSGi booking demo</a></h1>
+                <div id="options">
+                    Connected as Anonymous
+                    |
+                    <a href="list.html">Search</a>
+                </div>
+        </div>
+        
+        <div id="content">
+            <h2></h2>
+            <img src="/app/static/images/h1.jpg" width="200" height="150">
+            <p>Cet hôtel propose des chambres modernes dotées d'une machine à café Nespresso et d'une télévision à écran plat. Il comprend un centre de remise en forme et se trouve à seulement 100 mètres de la gare centrale d'Anvers.
+            Les chambres sont dotées d'un parquet, d'un bureau et d'une salle de bains contemporaine. Chacune d'entre elles est climatisée et comprend également un minibar.</p>
+            <p>Le zoo d'Anvers et le quartier commerçant du Meir se trouvent respectivement à 5 et 15 minutes à pied de l'établissement. Le Musée provincial du diamant est situé juste en face.</p>
+            <p>Le centre de santé et de bien-être du Radisson Blu Astrid, situé à 100 mètres, est accessible gratuitement. Vous pourrez vous détendre en piquant une tête dans la piscine chauffée et en profitant du sauna, du hammam et du centre de remise en forme.</p>
+            <div id="book" class="result"></div>
+        </div>
+        <div id="error" class="result"></div>
+        <div id="footer">
+            Created with Weld-OSGi and really inspirated from the booking sample application provided by <a href="http://seamframework.org/">seam framework</a>
+        </div>
+        
+        <script type="text/javascript">
+
+            function update() {
+                var id = getURLParam("id");
+                if (id == "") {
+                    $('#content').html("<h2>Hotel isn't available ...</h2>");
+                } else {
+                    $.ajax({ type: "GET", url: "/app/ctrl/hotels/" + id, success: function(msg){
+                            if (msg != null) {
+                                $('#error').fadeOut(500);
+                                $('#content').fadeIn(500);
+                                var text = "Hotel: " + msg.name + " (" + msg.price + "€ / night)";
+                                var link = "<a href='book.html?id=" 
+                                    + id + "' class='passed'>Book</a>";
+                                $('#content h2').html(text);
+                                $('#content #book').html(link);
+                            } else {
+                                $('#content').fadeOut(500);
+                                $('#error').html("<div class='failed'>Hotel isn't available anymore. Please come back later.</div>")
+                                $('#error').show();
+                            }
+                        }, failure: function(msg) {
+                            $('#content').hide(500);
+                            $('#error').html("<div class='failed'>Hotel isn't available anymore. Please come back later.</div>")
+                            $('#error').show();
+                        }
+                    });
+                }
+            }
+            
+            function init() {
+                update();
+                return setInterval(update, 1000);
+            }
+            
+            function getURLParam(strParamName){
+                var strReturn = "";
+                var strHref = window.location.href;
+                if ( strHref.indexOf("?") > -1 ){
+                    var strQueryString = strHref.substr(strHref.indexOf("?")).toLowerCase();
+                    var aQueryString = strQueryString.split("&");
+                    for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
+                        if ( 
+                        aQueryString[iParam].indexOf(strParamName.toLowerCase() + "=") > -1 ){
+                            var aParam = aQueryString[iParam].split("=");
+                            strReturn = aParam[1];
+                            break;
+                        }
+                    }
+                }
+                return unescape(strReturn);
+            }
+            
+            init();
+        </script>
+    </body>
+</html>
