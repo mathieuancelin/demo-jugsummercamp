@@ -10,9 +10,7 @@
         <div id="header">
             <h1><a href="/app/static/html/index.html">Weld-OSGi booking demo</a></h1>
                 <div id="options">
-                    Connected as Anonymous
-                    |
-                    <a href="list.html">Search</a>
+                    <a href="list.html">Hotels list</a>
                 </div>
         </div>
         
@@ -88,6 +86,7 @@
         <div id="error" class="result"></div>
         <div id="footer">
             Created with Weld-OSGi and really inspirated from the booking sample application provided by <a href="http://seamframework.org/">seam framework</a>
+            <br/>Style inspirated from the booking sample application provided by <a href="//http://www.playframework.org/">Play framework</a>
         </div>
         
         <script type="text/javascript">
@@ -95,7 +94,7 @@
                 var id = getURLParam("id");
                 if (id == "") {
                     $('#content').fadeOut(500);
-                    $('#error').html("<div class='failed'>Hotel isn't available anymore. Please come back later.</div>")
+                    $('#error').html("<div class='failed'>Hotel isn't available anymore. Please come back later.</div><br/><a href='index.html' class='passed'>Home</a>")
                     $('#error').show();
                 } else {
                     $.ajax({ type: "GET", url: "/app/ctrl/hotels/" + id, success: function(msg){
@@ -103,11 +102,7 @@
                                 $('#error').fadeOut(500);
                                 $('#content').fadeIn(500);
                                 var text = "Book: " + msg.name;
-                                var link = "<a href='summary.html?id=" 
-                                    + id + "'>Confirm</a>";
-                                //$('#content form').attr("action", "summary.html")
                                 $('#content h2').html(text);
-                                //$('#content #confirm').html(link);
                                 var info = "<input type='hidden' name='hotel.id' value='" + msg.id + "' />" +
                                     "<input type='hidden' name='hotel.name' value='" + msg.name + "' />" +
                                     "<input type='hidden' name='hotel.address' value='" + msg.address + "' />" +
@@ -122,13 +117,13 @@
                                 $('#content form #info').html(info);
                             } else {
                                 $('#content').fadeOut(500);
-                                $('#error').html("<div class='failed'>Hotel isn't available anymore. Please come back later.</div>")
-                                $('#error').show();
+                                $('#error').html("<div class='failed'>Hotel isn't available anymore. Please come back later.</div><br/><a href='index.html' class='passed'>Home</a>")
+                                $('#error').fadeIn(500);
                             }
                         }, failure: function(msg) {
                             $('#content').hide(500);
-                            $('#error').html("<div class='failed'>Hotel isn't available anymore. Please come back later.</div>")
-                            $('#error').show();
+                            $('#error').html("<div class='failed'>Hotel isn't available anymore. Please come back later.</div><br/><a href='index.html' class='passed'>Home</a>")
+                            $('#error').fadeIn(500);
                         }
                     });
                 }

@@ -10,24 +10,22 @@
         <div id="header">
             <h1><a href="/app/static/html/index.html">Weld-OSGi booking demo</a></h1>
                 <div id="options">
-                    Connected as Anonymous
-                    |
-                    <a href="list.html">Search</a>
+                    <a href="list.html">Hotels list</a>
                 </div>
         </div>
         
         <div id="content">
             <h2></h2>
             <img src="/app/static/images/h1.jpg" width="200" height="150">
-            <p>Cet hôtel propose des chambres modernes dotées d'une machine à café Nespresso et d'une télévision à écran plat. Il comprend un centre de remise en forme et se trouve à seulement 100 mètres de la gare centrale d'Anvers.
-            Les chambres sont dotées d'un parquet, d'un bureau et d'une salle de bains contemporaine. Chacune d'entre elles est climatisée et comprend également un minibar.</p>
-            <p>Le zoo d'Anvers et le quartier commerçant du Meir se trouvent respectivement à 5 et 15 minutes à pied de l'établissement. Le Musée provincial du diamant est situé juste en face.</p>
-            <p>Le centre de santé et de bien-être du Radisson Blu Astrid, situé à 100 mètres, est accessible gratuitement. Vous pourrez vous détendre en piquant une tête dans la piscine chauffée et en profitant du sauna, du hammam et du centre de remise en forme.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque imperdiet vehicula orci, volutpat malesuada tortor pulvinar eu. Fusce cursus, nisl sed mollis convallis, ligula sem interdum sem, in elementum nibh turpis at massa. Aliquam tellus magna, vehicula eget euismod sit amet, posuere eget tortor. Nunc eleifend purus et risus consequat id tempus leo mattis. Phasellus non nibh non orci posuere congue. Sed faucibus ante ac eros rhoncus molestie. Nulla gravida, enim id varius pellentesque, libero tellus imperdiet mi, vitae pulvinar tortor nisl sed ipsum. Vestibulum non ligula at leo porta scelerisque. Nam posuere interdum bibendum. Quisque nec aliquet nulla. Fusce sit amet diam eget metus rutrum bibendum a a sem. Cras felis neque, iaculis eu commodo vitae, tempus quis tortor. Donec semper tempus odio, id imperdiet elit mollis ut. Aliquam pretium, erat et placerat consequat, massa ligula posuere libero, ut tincidunt libero mauris vitae tortor. Vestibulum tincidunt erat vitae dui pellentesque nec viverra sapien ultrices.</p>
+
+            <p>Curabitur molestie vestibulum mi in tincidunt. Donec rutrum, purus non condimentum aliquet, sapien urna viverra metus, sed sodales lacus erat ac justo. Morbi sed purus neque. Fusce ut aliquet tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur in lectus leo. Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque orci sapien, lacinia nec elementum ut, elementum eu arcu. In vitae sapien tempus sem egestas cursus. Sed fermentum tellus mattis ligula adipiscing tempus nec in nibh. Nunc vitae lorem odio, sed dapibus nulla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</p>
             <div id="book" class="result"></div>
         </div>
         <div id="error" class="result"></div>
         <div id="footer">
             Created with Weld-OSGi and really inspirated from the booking sample application provided by <a href="http://seamframework.org/">seam framework</a>
+            <br/>Style inspirated from the booking sample application provided by <a href="//http://www.playframework.org/">Play framework</a>
         </div>
         
         <script type="text/javascript">
@@ -48,13 +46,13 @@
                                 $('#content #book').html(link);
                             } else {
                                 $('#content').fadeOut(500);
-                                $('#error').html("<div class='failed'>Hotel isn't available anymore. Please come back later.</div>")
-                                $('#error').show();
+                                $('#error').html("<div class='failed'>Hotel isn't available anymore. Please come back later.</div><br/><a href='index.html' class='passed'>Home</a>")
+                                $('#error').fadeIn(500);
                             }
                         }, failure: function(msg) {
                             $('#content').hide(500);
-                            $('#error').html("<div class='failed'>Hotel isn't available anymore. Please come back later.</div>")
-                            $('#error').show();
+                            $('#error').html("<div class='failed'>Hotel isn't available anymore. Please come back later.</div><br/><a href='index.html' class='passed'>Home</a>")
+                            $('#error').fadeIn(500);
                         }
                     });
                 }
